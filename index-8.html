@@ -1,0 +1,1655 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a0b15">
+<title>Nishiy Demon List</title>
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #0b0811;
+  --panel: #15101e;
+  --line: #342342;
+  --text: #f7f1ff;
+  --muted: #b7a9c7;
+  --accent: #b65cff;
+  --accent2: #9d4edd;
+  --soft: #21162e;
+  --green: #3dd68c;
+  --orange: #ff9f43;
+  --red: #ff6b6b;
+}
+* { box-sizing: border-box; }
+html { overflow-x: hidden; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-width: 0;
+  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+button, input, select, textarea { font: inherit; }
+button, a { cursor: pointer; }
+a { color: #e0c3ff; text-decoration: none; }
+a:hover { text-decoration: underline; color: #fff; }
+
+.wrap { max-width: 960px; width: 100%; margin: auto; padding: 0 18px; }
+
+/* Header */
+.hero {
+  padding: 36px 0 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 8px;
+}
+.logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+.logo-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 0 18px rgba(255, 40, 40, 0.45), 0 4px 20px rgba(0,0,0,0.4);
+  border: 2px solid rgba(255, 60, 60, 0.6);
+}
+.logo-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.brand h1 {
+  font-size: clamp(28px, 5.5vw, 40px);
+  line-height: 1.1;
+  margin: 0;
+  font-weight: 850;
+  letter-spacing: -1px;
+}
+.tag {
+  color: var(--muted);
+  margin-top: 6px;
+  font-size: 14px;
+}
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.nav button, .btn, .select {
+  border: 1px solid #45464c;
+  border-radius: 9px;
+  background: var(--soft);
+  color: var(--text);
+  padding: 9px 15px;
+  font-weight: 650;
+  transition: background .15s, border-color .15s, transform .1s;
+}
+.nav button.active, .btn.primary {
+  background: linear-gradient(135deg, #a94cff, #7b2cbf);
+  border-color: #c27aff;
+  color: #fff;
+}
+.nav button:hover, .btn:hover {
+  border-color: #a8a8ad;
+  transform: translateY(-1px);
+}
+
+/* Main */
+main { padding: 12px 0 48px; }
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 10px 0 16px;
+}
+.section-head h2 {
+  font-size: 22px;
+  margin: 0;
+  font-weight: 800;
+}
+.muted { color: var(--muted); font-size: 13px; }
+
+.toolbar {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.search {
+  flex: 1;
+  min-width: 180px;
+  background: var(--panel);
+  color: white;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 11px 14px;
+  outline: none;
+}
+.search:focus, input:focus, textarea:focus, select:focus {
+  border-color: var(--accent);
+}
+.select {
+  background: var(--panel);
+  padding: 10px 12px;
+}
+
+/* Cards */
+.grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.card, .panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  overflow: hidden;
+}
+.level-card {
+  cursor: pointer;
+  transition: border-color .15s, background .15s, transform .12s;
+}
+.level-card:hover {
+  background: #1c1528;
+  border-color: var(--accent2);
+  transform: translateY(-1px);
+}
+.level-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 6.5;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2a1a3a 0%, #1a1025 100%);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: flex-end;
+  padding: 14px 16px;
+}
+.cover-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.level-cover.has-img .cover-rank,
+.level-cover.has-img .cover-title,
+.level-cover.has-img .cover-diff {
+  text-shadow: 0 2px 12px rgba(0,0,0,0.85), 0 0 20px rgba(0,0,0,0.5);
+}
+.level-cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 20%, rgba(182,92,255,0.25) 0%, transparent 55%),
+              radial-gradient(ellipse at 20% 80%, rgba(157,78,221,0.15) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+.level-cover::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 55%;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+.level-cover.tier-1 {
+  background: linear-gradient(135deg, #3d2a10 0%, #1a1208 50%, #2a1a08 100%);
+}
+.level-cover.tier-1::before {
+  background: radial-gradient(ellipse at 70% 30%, rgba(255,200,60,0.28) 0%, transparent 55%),
+              radial-gradient(ellipse at 15% 70%, rgba(255,140,0,0.12) 0%, transparent 50%);
+}
+.level-cover.tier-2 {
+  background: linear-gradient(135deg, #2a1838 0%, #150e20 50%, #1e1230 100%);
+}
+.level-cover.tier-3 {
+  background: linear-gradient(135deg, #1a2238 0%, #0e1420 50%, #121a2a 100%);
+}
+.level-cover.tier-official {
+  background: linear-gradient(135deg, #1a2a28 0%, #0c1614 50%, #12221e 100%);
+}
+.level-cover.tier-official::before {
+  background: radial-gradient(ellipse at 70% 30%, rgba(61,214,140,0.2) 0%, transparent 55%);
+}
+.cover-rank {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: rgba(255,255,255,0.22);
+  line-height: 1;
+  z-index: 2;
+}
+.cover-rank.gold { color: rgba(255,215,0,0.35); }
+.cover-rank.silver { color: rgba(192,192,192,0.3); }
+.cover-rank.bronze { color: rgba(205,127,50,0.32); }
+.cover-title {
+  position: relative;
+  z-index: 2;
+  font-size: 17px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  max-width: 85%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cover-diff {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #e8dfff;
+  backdrop-filter: blur(4px);
+}
+.detail-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 14px 0;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: flex-end;
+  padding: 20px 22px;
+}
+.detail-cover .cover-rank { font-size: 48px; top: 16px; left: 20px; }
+.detail-cover .cover-title { font-size: 24px; }
+.card-body { padding: 13px 15px; }
+.level-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.level-number {
+  color: #aaaab0;
+  font-weight: 800;
+  min-width: 32px;
+  font-size: 15px;
+  padding-top: 2px;
+}
+.level-info { min-width: 0; flex: 1; }
+.level-info h3 {
+  font-size: 16px;
+  margin: 0 0 3px;
+  letter-spacing: 0;
+}
+.tiny { font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.level-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-top: 7px;
+  flex-wrap: wrap;
+}
+.difficulty {
+  font-size: 10px;
+  color: #d0c5e0;
+  border: 1px solid #55376f;
+  border-radius: 5px;
+  padding: 3px 7px;
+  white-space: nowrap;
+  background: #2a1b39;
+}
+.mini-btn {
+  background: #251833;
+  border: 1px solid #494a50;
+  border-radius: 7px;
+  color: #f1f1f3;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.mini-btn:hover { border-color: #aaaab0; }
+
+/* Players grid */
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 11px;
+}
+.player-card {
+  padding: 16px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.player-card:hover {
+  border-color: var(--accent2);
+  background: #1c1528;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #3b2353, #6b2d9b);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 17px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+.player-card h3 {
+  margin: 0 0 5px;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+.player-card p {
+  margin: 3px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+
+/* Built-in local list manager */
+.manage-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.manage-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.manage-field.full{grid-column:1/-1}
+.manage-field label{font-size:13px;color:var(--muted);font-weight:700}
+.manage-field input,.manage-field select,.manage-field textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card,#15121e);color:var(--text);font:inherit}
+.manage-field textarea{min-height:84px;resize:vertical}
+.manage-note{font-size:13px;color:var(--muted)}
+@media(max-width:600px){.manage-grid{grid-template-columns:1fr}.manage-field.full{grid-column:auto}}
+
+/* Panels & tables */
+.panel { padding: 18px; margin-bottom: 14px; }
+.panel h3 { margin: 0 0 12px; }
+.row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.row > * { flex: 1; min-width: 160px; }
+.table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13px;
+  min-width: 480px;
+}
+.table th, .table td {
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  padding: 10px 8px;
+  vertical-align: top;
+}
+.table th {
+  color: #bdbdc3;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+}
+.table tr:last-child td { border-bottom: 0; }
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 5px;
+  background: #2a1b39;
+  border: 1px solid #55376f;
+  font-size: 11px;
+  color: #e1e1e4;
+}
+.notice {
+  padding: 12px 14px;
+  background: var(--soft);
+  border: 1px solid #55376f;
+  border-radius: 9px;
+  color: #ddd;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+.empty {
+  padding: 40px 10px;
+  text-align: center;
+  color: var(--muted);
+  grid-column: 1 / -1;
+}
+.back { margin-bottom: 14px; }
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 22px 0 30px;
+  color: #85858b;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* Rules */
+.rules h3 { margin-top: 22px; margin-bottom: 8px; }
+.rules ol, .rules ul { padding-left: 20px; }
+.rules li { margin: 8px 0; }
+
+/* Socials */
+.socials {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.socials a, .socials button {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--soft);
+  color: #eee;
+  font-size: 13px;
+}
+
+/* Form */
+.formgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+.field label {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.field input, .field textarea, .field select {
+  width: 100%;
+  background: #111214;
+  color: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+/* Rank colors */
+.rank-1 { color: #ffd700; }
+.rank-2 { color: #c0c0c0; }
+.rank-3 { color: #cd7f32; }
+
+@media (max-width: 600px) {
+  .wrap { padding: 0 12px; }
+  .hero { padding-top: 28px; }
+  .brand h1 { font-size: 28px; }
+  .nav { gap: 6px; }
+  .nav button { padding: 8px 11px; font-size: 12px; }
+  .card-body { padding: 12px; }
+  .player-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 380px) {
+  .player-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header class="wrap hero">
+  <div class="logo-row">
+    <div class="logo-circle"><img src="data:image/jpeg;base64,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" alt="Nishiy Demon List"></div>
+    <div class="brand">
+      <h1 id="siteTitle">Nishiy Demon List</h1>
+    </div>
+  </div>
+  <div class="tag" id="tagline">NLL · Community Geometry Dash Demon List</div>
+  <nav class="nav" id="nav">
+    <button data-page="levels" class="active">Уровни</button>
+    <button data-page="shitty">Shitty</button>
+    <button data-page="players">Игроки</button>
+    <button data-page="requests">Реквесты</button>
+    <button data-page="manage">Добавить запись</button>
+    <button data-page="rules">Правила</button>
+    <button data-page="social">Соцсети</button>
+    <button id="langToggle" class="btn">EN</button>
+  </nav>
+</header>
+
+<main class="wrap" id="main"></main>
+
+<footer class="wrap footer">
+  Nishiy Demon List · Unofficial Geometry Dash community project · Geometry Dash belongs to RobTop Games
+</footer>
+
+<script>
+/* ===================== DATA ===================== */
+const LEVELS = [
+  {rank:1,  name:"Acropolis", difficulty:"Insane Demon",              victors:["Goldzor","Sharapun","unxMOBILE","Tropical"], percent:"42-100%", percentPlayer:"Tropical", creator:"Zobros", id:"5155022", verifier:"Goldzor"},
+  {rank:2,  name:"Magma Bound", difficulty:"Insane Demon",            victors:["Pasha4e"], percent:"100%", percentPlayer:"Pasha4e", creator:"ScorchVx", id:"56568010", verifier:"Pasha4e"},
+  {rank:3,  name:"Crazy II", difficulty:"Insane Demon",               victors:["unxMOBILE","Tropical"], percent:"90%", percentPlayer:"Tropical", creator:"DavJT", id:"47620786", verifier:"unxMOBILE"},
+  {rank:4,  name:"The Furious", difficulty:"Hard Demon",            victors:["Bodiflesh","Sharapun","unxMOBILE"], percent:"", percentPlayer:"", creator:"Knobbelboy", id:"19564763", verifier:"Bodiflesh"},
+  {rank:5,  name:"Neur Absence", difficulty:"Hard Demon",           victors:["unxMOBILE"], percent:"", percentPlayer:"", creator:"cherryteam", id:"96566713", verifier:"unxMOBILE"},
+  {rank:6,  name:"Anya II", difficulty:"Hard Demon",                victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"Anya21", id:"73670615", verifier:"Bodiflesh"},
+  {rank:7,  name:"Panical", difficulty:"Hard Demon",                victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"BloomOcean", id:"78487463", verifier:"Bodiflesh"},
+  {rank:8,  name:"Future Funk", difficulty:"Hard Demon",            victors:["Pasha4e"], percent:"", percentPlayer:"", creator:"JonathanGD", id:"44062068", verifier:"Pasha4e"},
+  {rank:9,  name:"OtVinta", difficulty:"Hard Demon",                victors:["Goldzor"], percent:"", percentPlayer:"", creator:"DELISHOZ", id:"115585275", verifier:"Goldzor"},
+  {rank:10, name:"Entropic dreams", difficulty:"Hard Demon",        victors:["Bodiflesh","Tropical"], percent:"86%", percentPlayer:"Tropical", creator:"LepszyGD", id:"96096712", verifier:"Bodiflesh"},
+  {rank:11, name:"Crazy", difficulty:"Hard Demon",                  victors:["Pasha4e","TropicalMOBILE","Bodiflesh","unxMOBILE","Goldzor"], percent:"", percentPlayer:"", creator:"DavJT", id:"40945673", verifier:"Pasha4e"},
+  {rank:12, name:"Acc", difficulty:"Hard Demon",                    victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"PDKGD", id:"81937422", verifier:"Bodiflesh"},
+  {rank:13, name:"Nine Circles", difficulty:"Hard Demon",           victors:["TropicalMOBILE","Tropical","Bodiflesh"], percent:"8-100%", percentPlayer:"Tropical", creator:"Zobros", id:"4284013", verifier:"TropicalMOBILE"},
+  {rank:14, name:"The Realistic", difficulty:"Medium Demon",          victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"softable", id:"6664095", verifier:"Bodiflesh"},
+  {rank:15, name:"Tech City", difficulty:"Medium Demon",             victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"WLFN", id:"33184361", verifier:"Bodiflesh"},
+  {rank:16, name:"Hell", difficulty:"Medium Demon",                   victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"Serponge", id:"25706351", verifier:"Bodiflesh"},
+  {rank:17, name:"Bloodbath Z", difficulty:"Medium Demon",            victors:["Bodiflesh","TropicalMOBILE"], percent:"", percentPlayer:"", creator:"Zyzyx", id:"21761387", verifier:"Bodiflesh"},
+  {rank:18, name:"Ruuun", difficulty:"Medium Demon",                  victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"qMystic", id:"88261400", verifier:"Bodiflesh"},
+  {rank:19, name:"Mallwalre", difficulty:"Medium Demon",              victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"MrLorenzo", id:"25559054", verifier:"Bodiflesh"},
+  {rank:20, name:"Solar Circles", difficulty:"Medium Demon",          victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"D4rkGryf", id:"10972106", verifier:"Bodiflesh"},
+  {rank:21, name:"Can't let vuls", difficulty:"Medium Demon",         victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"vulcanium4", id:"86665617", verifier:"Bodiflesh"},
+  {rank:22, name:"Morce II", difficulty:"Medium Demon",               victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"ZiTron", id:"68242954", verifier:"Bodiflesh"},
+  {rank:23, name:"Skeletal Shenanigans", difficulty:"Medium Demon",   victors:["Goldzor"], percent:"", percentPlayer:"", creator:"YoReid", id:"118509879", verifier:"Goldzor"},
+  {rank:24, name:"Mechanical showdown", difficulty:"Medium Demon",    victors:["Bodiflesh","Goldzor"], percent:"", percentPlayer:"", creator:"Tongii", id:"27786218", verifier:"Bodiflesh"},
+  {rank:25, name:"Sakupen Egg", difficulty:"Medium Demon",            victors:["Bodiflesh","Goldzor"], percent:"", percentPlayer:"", creator:"Sivlol", id:"58002670", verifier:"Bodiflesh"},
+  {rank:26, name:"Verity", difficulty:"Medium Demon",                 victors:["TropicalMOBILE","Bodiflesh","Sir1x","unxMOBILE"], percent:"", percentPlayer:"", creator:"Serponge", id:"18834999", verifier:"TropicalMOBILE"},
+  {rank:27, name:"levocardia", difficulty:"Medium Demon",             victors:["dezlorator"], percent:"", percentPlayer:"", creator:"IpuNneO", id:"146128982", verifier:"dezlorator"},
+  {rank:28, name:"B", difficulty:"Medium Demon",                      victors:["Sir1x","TropicalMOBILE","unxMOBILE","Goldzor","Tropical"], percent:"", percentPlayer:"", creator:"motleyorc", id:"34085027", verifier:"Sir1x"},
+  {rank:29, name:"Ebb", difficulty:"Medium Demon",                    victors:["Tropical","unxMOBILE","TropicalMOBILE"], percent:"", percentPlayer:"", creator:"SirHadoken", id:"24380303", verifier:"Tropical"},
+  {rank:30, name:"Bloudeleuste", difficulty:"Easy Demon",           victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"MrSpaghetti", id:"77428474", verifier:"Bodiflesh"},
+  {rank:31, name:"PROBLEMATIC", difficulty:"Easy Demon",            victors:["TropicalMOBILE","unxMOBILE","Bodiflesh"], percent:"", percentPlayer:"", creator:"Dhafin", id:"7116121", verifier:"TropicalMOBILE"},
+  {rank:32, name:"Death Moon", difficulty:"Easy Demon",             victors:["Bodiflesh","Tropical"], percent:"98%", percentPlayer:"Tropical", creator:"Caustic", id:"8660411", verifier:"Bodiflesh"},
+  {rank:33, name:"Impact X", difficulty:"Easy Demon",               victors:["Sir1x"], percent:"", percentPlayer:"", creator:"NiTro451", id:"28461869", verifier:"Sir1x"},
+  {rank:34, name:"Bloudebafe", difficulty:"Easy Demon",             victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"MrSpaghetti", id:"56283849", verifier:"Bodiflesh"},
+  {rank:35, name:"Extinction", difficulty:"Easy Demon",             victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"haoN", id:"38427291", verifier:"Bodiflesh"},
+  {rank:36, name:"Invisible light", difficulty:"Easy Demon",        victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"Nacho21", id:"14019412", verifier:"Bodiflesh"},
+  {rank:37, name:"FreeDom", difficulty:"Easy Demon",                victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"MrPPs", id:"29247995", verifier:"Bodiflesh"},
+  {rank:38, name:"Tabasco", difficulty:"Easy Demon",                victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"talia", id:"75603568", verifier:"Bodiflesh"},
+  {rank:39, name:"X", difficulty:"Easy Demon",                      victors:["TropicalMOBILE","Tropical","Bodiflesh","Sir1x"], percent:"", percentPlayer:"", creator:"TriAxis", id:"17235008", verifier:"TropicalMOBILE"},
+  {rank:40, name:"KPUT6IE L9GUSHKI", difficulty:"Easy Demon",       victors:["unxMOBILE","Pasha4e","dezlorator"], percent:"61%", percentPlayer:"dezlorator", creator:"EtherumTeam", id:"112740597", verifier:"unxMOBILE"},
+  {rank:42, name:"Speed Racer", difficulty:"Easy Demon",            victors:["Tropical","TropicalMOBILE","Димасик","Sir1x"], percent:"", percentPlayer:"", creator:"ZenthicAlpha", id:"3543219", verifier:"Tropical"},
+  {rank:43, name:"PHJONK", difficulty:"Easy Demon",                 victors:["Sir1x"], percent:"", percentPlayer:"", creator:"cerufiffy", id:"56587109", verifier:"Sir1x"},
+  {rank:44, name:"Bismarck", difficulty:"Medium Demon",               victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"Inex", id:"83025300", verifier:"Bodiflesh"},
+  {rank:45, name:"Collapse", difficulty:"Easy Demon",               victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"zZeusGD", id:"70444933", verifier:"Bodiflesh"},
+  {rank:46, name:"ClutterX", difficulty:"Easy Demon",               victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"KuraiYonaka", id:"62067918", verifier:"Bodiflesh"},
+  {rank:47, name:"TOE2", difficulty:"Insane",                   victors:["TropicalMOBILE","Sir1x"], percent:"", percentPlayer:"", creator:"RobTop", id:"9984179", verifier:"TropicalMOBILE"},
+  {rank:48, name:"Deadlocked", difficulty:"Insane",             victors:["dezlorator","unxMOBILE","Sharapun","Sir1x","ManerBoss"], percent:"81%", percentPlayer:"ManerBoss", creator:"RobTop", id:"19259076", verifier:"dezlorator"},
+  {rank:49, name:"Decode", difficulty:"Easy Demon",                 victors:["TropicalMOBILE","Bodiflesh"], percent:"", percentPlayer:"", creator:"Rek3dge", id:"2997354", verifier:"TropicalMOBILE"},
+  {rank:50, name:"Deadrop", difficulty:"Easy Demon",                victors:["Bodiflesh","dezlorator","Tropical","unxMOBILE"], percent:"", percentPlayer:"", creator:"OvniFella", id:"56764573", verifier:"Bodiflesh"},
+  {rank:51, name:"The Experiment", difficulty:"Easy Demon",         victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"khelado", id:"71514967", verifier:"Bodiflesh"},
+  {rank:52, name:"Retro Circles", difficulty:"Easy Demon",          victors:["dezlorator","Sir1x","TropicalMOBILE","ManerBoss"], percent:"", percentPlayer:"", creator:"Nacho21", id:"14000484", verifier:"dezlorator"},
+  {rank:53, name:"XtepV2", difficulty:"Easy Demon",                 victors:["Sir1x","TropicalMOBILE"], percent:"61%", percentPlayer:"TropicalMOBILE", creator:"IIINePtunEIII", id:"341613", verifier:"Sir1x"},
+  {rank:54, name:"Invisible Clubstep", difficulty:"Easy Demon",     victors:["Tropical","TropicalMOBILE","Sir1x","dezlorator","unxMOBILE","Bodiflesh"], percent:"", percentPlayer:"", creator:"J4cKy", id:"1347537", verifier:"Tropical"},
+  {rank:55, name:"Clubstep", difficulty:"Medium Demon",               victors:["TropicalMOBILE","Sir1x","dezlorator"], percent:"", percentPlayer:"", creator:"RobTop", id:"450920", verifier:"TropicalMOBILE"},
+  {rank:56, name:"Dear Nostalgist", difficulty:"Easy Demon",        victors:["Bodiflesh","TropicalMOBILE"], percent:"95%", percentPlayer:"TropicalMOBILE", creator:"TriAxis", id:"18735780", verifier:"Bodiflesh"},
+  {rank:57, name:"Trump Circles", difficulty:"Easy Demon",          victors:["Goldzor"], percent:"", percentPlayer:"", creator:"Rlol", id:"26245696", verifier:"Goldzor"},
+  {rank:58, name:"Five Nights Pollato", difficulty:"Easy Demon",    victors:["Goldzor"], percent:"", percentPlayer:"", creator:"Pollapo", id:"6199083", verifier:"Goldzor"},
+  {rank:59, name:"Platinum Adventure", difficulty:"Easy Demon",     victors:["TropicalMOBILE","Bodiflesh","ManerBoss","Димасик","Sir1x"], percent:"", percentPlayer:"", creator:"Jerry4", id:"5904109", verifier:"TropicalMOBILE"},
+  {rank:60, name:"Space Circles", difficulty:"Easy Demon",          victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"SUOMI", id:"9864147", verifier:"Bodiflesh"},
+  {rank:61, name:"IS", difficulty:"Easy Demon",                     victors:["TropicalMOBILE","Tropical","Bodiflesh"], percent:"", percentPlayer:"", creator:"Grenate", id:"65765662", verifier:"TropicalMOBILE"},
+  {rank:62, name:"Ratio Circles", difficulty:"Easy Demon",          victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"ch4rlie03", id:"77132030", verifier:"Bodiflesh"},
+  {rank:63, name:"The Lightning Road", difficulty:"Easy Demon",     victors:["TropicalMOBILE","ManerBoss","Bodiflesh","Димасик","Sir1x"], percent:"", percentPlayer:"", creator:"timeless real", id:"55520", verifier:"TropicalMOBILE"},
+  {rank:64, name:"Luminescent", difficulty:"Easy Demon",            victors:["Sir1x"], percent:"", percentPlayer:"", creator:"Nova4664", id:"81863904", verifier:"Sir1x"},
+  {rank:65, name:"MachinA DeluXXe", difficulty:"Easy Demon",        victors:["TropicalMOBILE","ManerBoss"], percent:"", percentPlayer:"", creator:"sink", id:"126502545", verifier:"TropicalMOBILE"},
+  {rank:66, name:"The Nightmare", difficulty:"Easy Demon",          victors:["TropicalMOBILE","Tropical","ManerBoss","Димасик","Zakon","Sir1x"], percent:"", percentPlayer:"", creator:"Jax", id:"13519", verifier:"TropicalMOBILE"},
+  {rank:67, name:"Shiver", difficulty:"Easy Demon",                 victors:["Bodiflesh","Tropical","TropicalMOBILE","Sir1x","ManerBoss","unxMOBILE"], percent:"", percentPlayer:"", creator:"SpKale", id:"56210242", verifier:"Bodiflesh"},
+  {rank:68, name:"Speed of Light", difficulty:"Easy Demon",         victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"TheRealSalad", id:"5098465", verifier:"Bodiflesh"},
+  {rank:69, name:"Spark", difficulty:"Easy Demon",                  victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"PotatoBaby", id:"31076618", verifier:"Bodiflesh"},
+  {rank:70, name:"Demon Mixed", difficulty:"Easy Demon",            victors:["Bodiflesh"], percent:"", percentPlayer:"", creator:"RealOggY", id:"566659", verifier:"Bodiflesh"},
+  {rank:71, name:"Wcropolis", difficulty:"Insane",              victors:["dezlorator","Tropical","unxMOBILE"], percent:"", percentPlayer:"", creator:"KeyDashMaster", id:"9751111", verifier:"dezlorator"},
+  {rank:72, name:"Fingerdash", difficulty:"Insane",             victors:["fovtea","unxMOBILE","Sharapun","TropicalMOBILE","Zakon","ManerBoss","Димасик","Sir1x"], percent:"", percentPlayer:"", creator:"RobTop", id:"28672992", verifier:"fovtea"},
+  {rank:73, name:"Dash", difficulty:"Insane",                   victors:["darsed11","TropicalMOBILE","unxMOBILE","Sharapun","ManerBoss","Димасик","fovtea","Sir1x"], percent:"", percentPlayer:"", creator:"RobTop", id:"100080980", verifier:"darsed11"},
+  {rank:74, name:"Geometrical Dominator", difficulty:"Harder",  victors:["fovtea","unxMOBILE","Sharapun","TropicalMOBILE","Tropical","Sir1x"], percent:"", percentPlayer:"", creator:"RobTop", id:"11307115", verifier:"fovtea"},
+  {rank:75, name:"RetRay", difficulty:"Easy",                 victors:["dezlorator","unxMOBILE","Sharapun","Tropical"], percent:"", percentPlayer:"", creator:"DiMaViKuLov26", id:"6508283", verifier:"dezlorator"},
+  {rank:76, name:"Bloodbath auto", difficulty:"Hard",         victors:["Tropical","unxMOBILE","Sharapun"], percent:"", percentPlayer:"", creator:"dAlt9", id:"10792915", verifier:"Tropical"},
+  {rank:41, name:"Infinite Circles", difficulty:"Easy Demon", victors:["dezlorator"], percent:"", percentPlayer:"", creator:"Startor", id:"13037894", verifier:""}
+];
+
+const SHITTY = [
+  {rank:1, name:"Shitty The Hallucinations", creator:"Velance", victors:["Bodiflesh"], percent:"", percentPlayer:"", id:"81872820"},
+  {rank:2, name:"Shitty Cobwebs", creator:"Gild56", victors:["Bodiflesh"], percent:"", percentPlayer:"", id:"80507445"},
+  {rank:3, name:"Shitty The Golden", creator:"?", victors:["Bodiflesh"], percent:"", percentPlayer:"", id:"61034576"},
+  {rank:4, name:"Shitty Acheron", creator:"?", victors:["Bodiflesh"], percent:"", percentPlayer:"", id:"72189223"},
+  {rank:5, name:"Shitty Sakupen Circles", creator:"?", victors:["Bodiflesh"], percent:"", percentPlayer:"", id:"58840131"},
+  {rank:6, name:"Shitty Bloodbath", creator:"GILD56", victors:["Tropical"], percent:"53% (53-100%)", percentPlayer:"Tropical", id:"19865573"},
+  {rank:7, name:"Shitty Cataclysm", creator:"GILD56", victors:["Tropical"], percent:"63% (52-100%)", percentPlayer:"Tropical", id:"19729830"},
+  {rank:8, name:"Shitty Sakupen Circles", creator:"ItsSinx", victors:["TropicalMOBILE"], percent:"", percentPlayer:"", id:"58840131"},
+  {rank:9, name:"Shitty Bloodbath", creator:"?", victors:["darsed11"], percent:"93%", percentPlayer:"darsed11", id:"19865573"}
+];
+
+const PLAYERS = [
+  "Bodiflesh","unxMOBILE","Sharapun","Goldzor","Pasha4e","Tropical","TropicalMOBILE",
+  "Sir1x","dezlorator","Димасик","ManerBoss","Zakon","fovtea","darsed11","ARTEMU13","unx"
+];
+
+// Telegram profiles shown inside each player's Social links section.
+const PLAYER_SOCIALS = {
+  "fovtea": "https://t.me/fovtea",
+  "sharapun": "https://t.me/ladSharapuNno",
+  "manerboss": "https://t.me/itzMaNeRboSS",
+  "tropical": "https://t.me/geometredashes",
+  "tropicalmobile": "https://t.me/geometredashes",
+  "goldzor": "https://t.me/g0ldz0r",
+  "unx": "https://t.me/likeaunx",
+  "unxmobile": "https://t.me/likeaunx",
+  "bodiflesh": "https://t.me/BodifleshGD8",
+  "darsed11": "https://t.me/SantizxcDash"
+};
+
+// YouTube channels shown on each player's profile.
+const PLAYER_YOUTUBE = {
+  "tropical": "https://www.youtube.com/@Tropical_GDRKR",
+  "tropicalmobile": "https://www.youtube.com/@Tropical_GDRKR",
+  "dezlorator": "https://youtube.com/@fredosantanv?si=vTrryvNTyhLrl5WM",
+  "unx": "https://youtube.com/@unxxxx_s?si=5GXNksPnuVCCcksh",
+  "unxmobile": "https://youtube.com/@unxxxx_s?si=5GXNksPnuVCCcksh",
+  "bodiflesh": "https://youtube.com/@bodiflesh?si=OOzAEuOa",
+  "goldzor": "https://youtube.com/@goldzordm-d6r?si=GN2jji5L2FmpgN2p",
+  "pasha4e": "https://youtube.com/@pasha_4y?si=yhYl9o8Xqt6yMRf3",
+  "fovtea": "https://youtube.com/@fovtea?si=K-rAHcjMy6x6PAwb"
+};
+
+
+/* ===================== LOCAL ADMIN ADDITIONS =====================
+   Entries created through the built-in form are saved in this browser.
+   They are merged into the site's in-memory data when the HTML opens. */
+const LOCAL_ADDITIONS_KEY = 'nishiyDemonListLocalAdditions_v1';
+let LOCAL_ADDITIONS = [];
+try {
+  const saved = JSON.parse(localStorage.getItem(LOCAL_ADDITIONS_KEY) || '[]');
+  if (Array.isArray(saved)) LOCAL_ADDITIONS = saved;
+} catch (_) { LOCAL_ADDITIONS = []; }
+
+function applyLocalAdditions() {
+  LOCAL_ADDITIONS.forEach(item => {
+    if (!item || !item.level) return;
+    let existing = LEVELS.find(l => l.name.toLowerCase() === String(item.level.name || '').toLowerCase());
+    if (!existing) {
+      const level = {...item.level};
+      if (LEVELS.some(l => Number(l.rank) === Number(level.rank))) {
+        level.rank = Math.max(0, ...LEVELS.map(l => Number(l.rank) || 0)) + 1;
+      }
+      level.victors = Array.isArray(level.victors) ? level.victors : [];
+      LEVELS.push(level);
+      existing = level;
+    }
+    if (item.player) {
+      if (!existing.victors.some(v => String(v).toLowerCase() === String(item.player).toLowerCase())) {
+        existing.victors.push(item.player);
+      }
+      if (item.progress && item.progress !== '100' && item.progress !== '100%') {
+        existing.percent = String(item.progress).includes('%') ? String(item.progress) : `${item.progress}%`;
+        existing.percentPlayer = item.player;
+      }
+      if (item.video) existing.recordVideo = item.video;
+      if (item.details) existing.recordDetails = item.details;
+      if (item.player.toLowerCase() === String(existing.verifier || '').toLowerCase()) {
+        existing.verifier = item.player;
+      }
+      if (!PLAYERS.some(p => String(p).toLowerCase() === item.player.toLowerCase())) PLAYERS.push(item.player);
+    }
+  });
+  LEVELS.sort((a,b) => Number(a.rank) - Number(b.rank));
+}
+applyLocalAdditions();
+
+/* ===================== I18N ===================== */
+const I18N = {
+  en: {
+    tagline: "Community Geometry Dash Demon List",
+    levels: "Levels", shitty: "Shitty List", players: "Players", requests: "Requests", rules: "Rules / Policy", social: "Socials",
+    search: "Search levels…", searchPlayer: "Search players…",
+    all: "All", entries: "entries", view: "Open",
+    creator: "Creator", id: "Level ID", verifier: "Verifier",
+    victors: "Victors / Records", player: "Player", percent: "Progress", status: "Status",
+    unknown: "Not provided", hardest: "Hardest", completed: "Completed levels",
+    socialLinks: "Social links", noRecords: "No records yet.",
+    back: "← Back", levelPage: "Level details", find: "Find on GDBrowser ↗",
+    telegram: "Submit request via Telegram ↗",
+    policyTitle: "Nishiy Demon List — Rules & Privacy Policy",
+    owner: "Administration",
+    rules1: "Two owners decide level placement. Owners may consult players who have completed the level before agreeing on its position.",
+    rules2: "Requests are accepted from any country. Levels may be considered even without an in-game rating if they meet the list criteria.",
+    rules3: "We do not collect personal data. To add a record you do not need to register. Just send a request to our Telegram channel with your nickname and proof.",
+    requirements: "Evidence requirements",
+    insaneReq: "Insane (non-demon): screenshot + attempts (video preferred).",
+    easyReq: "Easy Demon: screenshot, attempts and completion video. Minimal mobile proof (visible taps) is acceptable if sufficient.",
+    mediumReq: "Medium Demon: screenshot, attempts, playtime and video. Mobile video should include audible taps.",
+    hardReq: "Hard Demon: screenshot, attempts, playtime and completion video.",
+    insanedReq: "Insane Demon: screenshot, attempts, playtime and video. Mobile: audible taps required.",
+    review: "Records are reviewed by list administration. Submitting evidence does not guarantee acceptance.",
+    privacy: "Privacy",
+    privacyText: "This static site does not collect registration data. Public nicknames and records are community-submitted. Telegram is an external service with its own privacy policy.",
+    contact: "Questions & requests",
+    sourceNote: "Information may be community-submitted. Verify before treating as official.",
+    victorSource: "Victors and percentages are taken from the supplied list.",
+    creatorUnknown: "Creator not confirmed",
+    verifierUnknown: "Verifier not confirmed",
+    language: "Language",
+    telegramChannel: "Telegram channel",
+    playersCount: "players",
+    levelCount: "levels",
+    completedLabel: "listed completions",
+    open: "Open",
+    done: "Done",
+    rank: "Rank",
+    name: "Name",
+    socialTitle: "Official Nishiy Demon List socials",
+    socialText: "Add official community links here when ready.",
+    noProof: "No proof link yet",
+    hardDemon: "Hard Demon", mediumDemon: "Medium Demon", easyDemon: "Easy Demon",
+    insaneDemon: "Insane Demon", official: "Official", auto: "Auto", insane: "Insane"
+  },
+  ru: {
+    tagline: "Сообщественный демон-лист Geometry Dash",
+    levels: "Уровни", shitty: "Shitty List", players: "Игроки", requests: "Реквесты", rules: "Правила", social: "Соцсети",
+    search: "Поиск уровней…", searchPlayer: "Поиск игроков…",
+    all: "Все", entries: "уровней", view: "Открыть",
+    creator: "Creator", id: "ID уровня", verifier: "Verifier",
+    victors: "Викторы / Рекорды", player: "Игрок", percent: "Прогресс", status: "Статус",
+    unknown: "Не указано", hardest: "Хардест", completed: "Пройденные уровни",
+    socialLinks: "Социальные сети", noRecords: "Рекордов пока нет.",
+    back: "← Назад", levelPage: "Информация об уровне", find: "Найти в GDBrowser ↗",
+    telegram: "Отправить реквест в Telegram ↗",
+    policyTitle: "Nishiy Demon List — Правила и политика конфиденциальности",
+    owner: "Администрация",
+    rules1: "Два владельца определяют позицию уровня в листе. Перед добавлением они могут согласовать позицию с игроками, прошедшими этот уровень.",
+    rules2: "Реквесты принимаются из любых стран. Можно рассмотреть уровень без внутриигровой оценки, если он соответствует критериям листа.",
+    rules3: "Мы не собираем личные данные. Для добавления рекорда не нужна регистрация. Просто отправьте заявку в наш Telegram-канал с никнеймом и доказательствами.",
+    requirements: "Требования к доказательствам",
+    insaneReq: "Insane (не демон): скриншот + попытки (видео желательно).",
+    easyReq: "Easy Demon: скриншот, попытки и видео. На мобильном допустимы видимые нажатия, если этого достаточно.",
+    mediumReq: "Medium Demon: скриншот, попытки, плейтайм и видео. На мобильном видео должны быть слышны нажатия.",
+    hardReq: "Hard Demon: скриншот, попытки, плейтайм и видео прохождения.",
+    insanedReq: "Insane Demon: скриншот, попытки, плейтайм и видео. На мобильном — слышны нажатия.",
+    review: "Рекорды проверяет администрация листа. Отправка доказательств не гарантирует принятия.",
+    privacy: "Конфиденциальность",
+    privacyText: "Этот статический сайт не собирает данные регистрации. Публичные никнеймы и рекорды присылает сообщество. Telegram — внешний сервис со своей политикой.",
+    contact: "Вопросы и реквесты",
+    sourceNote: "Информация может быть прислана сообществом. Проверяйте перед тем, как считать официальной.",
+    victorSource: "Викторы и проценты перенесены из присланного списка.",
+    creatorUnknown: "Creator not confirmed",
+    verifierUnknown: "Verifier not confirmed",
+    language: "Язык",
+    telegramChannel: "Telegram-канал",
+    playersCount: "игроков",
+    levelCount: "уровней",
+    completedLabel: "указанных прохождений",
+    open: "Открыть",
+    done: "Готово",
+    rank: "Место",
+    name: "Название",
+    socialTitle: "Официальные соцсети Nishiy Demon List",
+    socialText: "Добавьте сюда официальные ссылки сообщества, когда они будут готовы.",
+    noProof: "Ссылка на доказательство пока не указана",
+    hardDemon: "Hard Demon", mediumDemon: "Medium Demon", easyDemon: "Easy Demon",
+    insaneDemon: "Insane Demon", official: "Официальный", auto: "Auto", insane: "Insane"
+  }
+};
+
+/* ===================== STATE ===================== */
+let lang = 'ru';
+let page = 'levels';
+let selected = null;
+let search = '';
+let filter = 'all';
+
+/* ===================== HELPERS ===================== */
+function t(k) { return (I18N[lang] && I18N[lang][k]) || I18N.en[k] || k; }
+function escapeHtml(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function searchUrl(name) {
+  return 'https://gdbrowser.com/search/' + encodeURIComponent(name);
+}
+function diff(levelOrName) {
+  // Prefer stored difficulty from API
+  if (levelOrName && typeof levelOrName === 'object' && levelOrName.difficulty) {
+    return levelOrName.difficulty;
+  }
+  const name = typeof levelOrName === 'string' ? levelOrName : (levelOrName?.name || '');
+  const lvl = LEVELS.find(l => l.name === name);
+  if (lvl && lvl.difficulty) return lvl.difficulty;
+  return 'Demon';
+}
+function diffLabel(d) {
+  if (!d) return '—';
+  // Already full label from API (e.g. "Hard Demon", "Insane Demon", "Easy")
+  const lower = String(d).toLowerCase();
+  const map = {
+    'easy demon': lang === 'ru' ? 'Easy Demon' : 'Easy Demon',
+    'medium demon': lang === 'ru' ? 'Medium Demon' : 'Medium Demon',
+    'hard demon': lang === 'ru' ? 'Hard Demon' : 'Hard Demon',
+    'insane demon': lang === 'ru' ? 'Insane Demon' : 'Insane Demon',
+    'extreme demon': lang === 'ru' ? 'Extreme Demon' : 'Extreme Demon',
+    easy: 'Easy',
+    normal: 'Normal',
+    hard: 'Hard',
+    harder: 'Harder',
+    insane: 'Insane',
+    auto: 'Auto',
+    official: lang === 'ru' ? 'Официальный' : 'Official'
+  };
+  return map[lower] || d;
+}
+function flag(name) {
+  if (name === 'ARTEMU13') return '🇬🇾';
+  return '🇷🇺';
+}
+function isFullCompletion(level, playerName) {
+  // Full beat only — partial progress does NOT count as completion/hardest
+  const name = playerName.toLowerCase();
+  if (!level.victors.some(v => v.toLowerCase() === name)) return false;
+  const isPartial = level.percentPlayer && level.percentPlayer.toLowerCase() === name;
+  if (!isPartial) return true;
+  // percentPlayer with explicit 100% still counts as full
+  const p = String(level.percent || '').trim();
+  return p === '100%' || p === '100';
+}
+// Points by rank (higher on list = more points). Full completions only.
+function levelPoints(rank) {
+  const r = Number(rank);
+  if (r === 1) return 100;
+  if (r === 2) return 90;
+  if (r === 3) return 82;
+  if (r === 4) return 75;
+  if (r === 5) return 70;
+  if (r <= 10) return 65 - (r - 6) * 3;       // 65,62,59,56,53
+  if (r <= 20) return 45 - (r - 11) * 1.5;     // 45 → ~31.5
+  if (r <= 35) return 28 - (r - 21) * 0.7;     // 28 → ~18
+  if (r <= 50) return 16 - (r - 36) * 0.4;     // 16 → ~10
+  if (r <= 65) return 9 - (r - 51) * 0.25;     // 9 → ~5.5
+  return Math.max(1, 4 - (r - 66) * 0.3);     // 4 → 1
+}
+function pointsForLevel(level, playerName) {
+  if (!isFullCompletion(level, playerName)) return 0;
+  let pts = levelPoints(level.rank);
+  // Verifier bonus +10%
+  const isVer = level.verifier && level.verifier.toLowerCase() === String(playerName).toLowerCase();
+  if (isVer) pts = pts * 1.1;
+  return Math.round(pts * 10) / 10; // 1 decimal
+}
+function playerStats(name) {
+  const done = LEVELS.filter(l => isFullCompletion(l, name));
+  const hardest = done.length ? Math.min(...done.map(l => l.rank)) : 999;
+  const points = done.reduce((sum, l) => sum + pointsForLevel(l, name), 0);
+  return { count: done.length, hardest, points: Math.round(points * 10) / 10 };
+}
+function rankedPlayers() {
+  // Fixed order from the official player list (Top 1 = first in PLAYERS)
+  return PLAYERS.map((name, i) => ({
+    name,
+    top: i + 1,
+    ...playerStats(name)
+  }));
+}
+function playerTop(name) {
+  const idx = PLAYERS.findIndex(p => p.toLowerCase() === name.toLowerCase());
+  return idx >= 0 ? idx + 1 : null;
+}
+
+/* ===================== RENDER ===================== */
+function renderHeader() {
+  document.documentElement.lang = lang;
+  const tagline = document.getElementById('tagline');
+  if (tagline) tagline.textContent = 'NLL · ' + t('tagline');
+
+  document.querySelectorAll('[data-page]').forEach(b => {
+    const labels = {
+      levels: t('levels'),
+      shitty: t('shitty'),
+      players: t('players'),
+      requests: t('requests'),
+      manage: lang === 'ru' ? 'Добавить запись' : 'Add record',
+      rules: t('rules'),
+      social: t('social')
+    };
+    b.textContent = labels[b.dataset.page] || t(b.dataset.page);
+    b.classList.toggle('active', b.dataset.page === page);
+  });
+
+  const langBtn = document.getElementById('langToggle');
+  if (langBtn) langBtn.textContent = lang === 'en' ? 'Русский' : 'EN';
+}
+
+function render() {
+  renderHeader();
+  const main = document.getElementById('main');
+  if (page === 'levels') main.innerHTML = renderLevels();
+  else if (page === 'shitty') main.innerHTML = renderShitty();
+  else if (page === 'shitty-detail') main.innerHTML = renderShittyDetail(selected);
+  else if (page === 'players') main.innerHTML = renderPlayers();
+  else if (page === 'requests') main.innerHTML = renderRequests();
+  else if (page === 'manage') main.innerHTML = renderManage();
+  else if (page === 'level') main.innerHTML = renderLevelDetail(selected);
+  else if (page === 'player') main.innerHTML = renderPlayerDetail(selected);
+  else if (page === 'rules') main.innerHTML = renderRules();
+  else main.innerHTML = renderSocial();
+  bind();
+}
+
+function renderLevels() {
+  const q = search.toLowerCase();
+  let ls = LEVELS.filter(l => {
+    const matchQ = l.name.toLowerCase().includes(q) || l.victors.some(v => v.toLowerCase().includes(q));
+    if (!matchQ) return false;
+    if (filter === 'all') return true;
+    const d = (l.difficulty || '').toLowerCase();
+    if (filter === 'insane') return d.includes('insane demon');
+    if (filter === 'hard') return d === 'hard demon';
+    if (filter === 'medium') return d === 'medium demon';
+    if (filter === 'easy') return d === 'easy demon';
+    if (filter === 'official') return ['toe2','deadlocked','clubstep','fingerdash','dash','geometrical dominator'].includes(l.name.toLowerCase());
+    if (filter === 'auto') return d === 'auto' || l.name.toLowerCase().includes('auto');
+    if (filter === 'other') return !d.includes('demon') && d !== 'auto';
+    return true;
+  });
+
+  return `
+    <div class="section-head">
+      <div>
+        <h2>${t('levels')}</h2>
+        <div class="muted"></div>
+      </div>
+      <span class="badge">${ls.length} / ${LEVELS.length}</span>
+    </div>
+    <div class="toolbar">
+      <input id="levelSearch" class="search" placeholder="${t('search')}" value="${escapeHtml(search)}">
+      <select id="levelFilter" class="select">
+        <option value="all">${t('all')}</option>
+        <option value="insane">Insane Demon</option>
+        <option value="hard">${t('hardDemon')}</option>
+        <option value="medium">${t('mediumDemon')}</option>
+        <option value="easy">${t('easyDemon')}</option>
+        <option value="official">${t('official')}</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="grid">
+      ${ls.map(l => {
+        const verifier = l.verifier || l.victors[0] || '—';
+        const rankClass = l.rank <= 3 ? `rank-${l.rank}` : '';
+        const d = diff(l);
+        const dLower = String(d).toLowerCase();
+        let tier = 'tier-3';
+        if (['toe2','deadlocked','clubstep','fingerdash','dash','geometrical dominator'].includes(l.name.toLowerCase()) || dLower === 'auto') tier = 'tier-official';
+        else if (dLower.includes('insane demon') || l.rank <= 10) tier = 'tier-1';
+        else if (dLower.includes('hard demon') || l.rank <= 30) tier = 'tier-2';
+        let rankStyle = '';
+        if (l.rank === 1) rankStyle = 'gold';
+        else if (l.rank === 2) rankStyle = 'silver';
+        else if (l.rank === 3) rankStyle = 'bronze';
+        const thumbUrl = l.id ? `https://levelthumbs.prevter.me/thumbnail/${l.id}` : '';
+        return `
+          <article class="card level-card" data-level="${l.rank}">
+            <div class="level-cover ${tier}">
+              ${thumbUrl ? `<img class="cover-img" src="${thumbUrl}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}
+              <span class="cover-rank ${rankStyle}">#${l.rank}</span>
+              <span class="cover-diff">${diffLabel(d)}</span>
+              <div class="cover-title">${escapeHtml(l.name)}</div>
+            </div>
+            <div class="card-body">
+              <div class="level-line">
+                <span class="level-number ${rankClass}">#${l.rank}</span>
+                <div class="level-info">
+                  <h3>${escapeHtml(l.name)}</h3>
+                  <div class="tiny">${t('creator')}: ${l.creator ? escapeHtml(l.creator) : t('creatorUnknown')}</div>
+                  <div class="level-meta">
+                    <span class="tiny">${t('verifier')}: ${escapeHtml(verifier)}</span>
+                    <span class="difficulty">${diffLabel(d)}</span>
+                    <span class="tiny" style="color:var(--orange,#f0a)">★ ${levelPoints(l.rank)} Point</span>
+                  </div>
+                </div>
+                <button class="mini-btn" data-open-level="${l.rank}">${t('view')} →</button>
+              </div>
+            </div>
+          </article>`;
+      }).join('') || `<div class="empty">No results</div>`}
+    </div>`;
+}
+
+function renderShitty() {
+  return `
+    <div class="section-head">
+      <div>
+        <h2>${t('shitty')}</h2>
+        
+      </div>
+      <span class="badge">${SHITTY.length}</span>
+    </div>
+    <div class="grid">
+      ${SHITTY.map(l => {
+        const thumbUrl = l.id ? `https://levelthumbs.prevter.me/thumbnail/${l.id}` : '';
+        return `
+        <article class="card shitty-card" data-shitty="${l.rank}" role="button" tabindex="0" style="cursor:pointer">
+          <div class="level-cover tier-2">
+            ${thumbUrl ? `<img class="cover-img" src="${thumbUrl}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}
+            <span class="cover-rank">#${l.rank}</span>
+            <span class="cover-diff">Shitty</span>
+            <div class="cover-title">${escapeHtml(l.name)}</div>
+          </div>
+          <div class="card-body">
+            <div class="level-line">
+              <span class="level-number">#${l.rank}</span>
+              <div class="level-info">
+                <h3>${escapeHtml(l.name)}</h3>
+                <div class="tiny">${t('creator')}: ${escapeHtml(l.creator)}</div>
+                <div class="tiny" style="margin-top:4px">
+                  ${l.victors.map(v => flag(v) + ' ' + escapeHtml(v)).join(', ')}
+                  ${l.percent ? ` · <span style="color:var(--orange)">${escapeHtml(l.percent)}</span>` : ''}
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>`;
+      }).join('')}
+    </div>`;
+}
+
+function renderShittyDetail(rank) {
+  const l = SHITTY.find(x => x.rank === Number(rank));
+  if (!l) return renderShitty();
+  const thumbUrl = l.id ? `https://levelthumbs.prevter.me/thumbnail/${l.id}` : '';
+  return `
+    <button class="btn back" data-page="shitty">${t('back')}</button>
+    <div class="panel">
+      <div class="section-head">
+        <div>
+          <span class="badge">#${String(l.rank).padStart(2,'0')} · Shitty</span>
+          <h2 style="margin-top:10px">${escapeHtml(l.name)}</h2>
+        </div>
+        <a class="btn" href="${searchUrl(l.name)}" target="_blank" rel="noopener">${t('find')}</a>
+      </div>
+      <div class="detail-cover level-cover tier-2">
+        ${thumbUrl ? `<img class="cover-img" src="${thumbUrl}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}
+        <span class="cover-rank">#${l.rank}</span>
+        <span class="cover-diff">Shitty</span>
+        <div class="cover-title">${escapeHtml(l.name)}</div>
+      </div>
+      <div class="row">
+        <div><div class="muted">${t('id')}</div><strong>${l.id || t('unknown')}</strong></div>
+        <div><div class="muted">${t('creator')}</div><strong>${escapeHtml(l.creator || t('creatorUnknown'))}</strong></div>
+        <div><div class="muted">${t('verifier')}</div><strong>${l.victors.map(v => flag(v) + ' ' + escapeHtml(v)).join(', ') || t('verifierUnknown')}</strong></div>
+      </div>
+      ${l.percent ? `<p><strong>${escapeHtml(l.percentPlayer || '')}</strong> · ${escapeHtml(l.percent)}</p>` : ''}
+    </div>`;
+}
+
+function renderPlayers() {
+  const q = (document.getElementById('playerSearch')?.value || '').toLowerCase();
+  const ranked = rankedPlayers().filter(p => p.name.toLowerCase().includes(q));
+
+  return `
+    <div class="section-head">
+      <div>
+        <h2>${t('players')}</h2>
+        <div class="muted">${PLAYERS.length} ${t('playersCount')}</div>
+      </div>
+    </div>
+    <div class="toolbar">
+      <input id="playerSearch" class="search" placeholder="${t('searchPlayer')}" value="${escapeHtml(q)}">
+    </div>
+    <div class="player-grid">
+      ${ranked.map(p => {
+        const hardestLvl = LEVELS.find(l => l.rank === p.hardest);
+        const topClass = p.top <= 3 ? `rank-${p.top}` : '';
+        return `
+          <article class="card player-card" data-player="${escapeHtml(p.name)}">
+            <h3><span class="level-number ${topClass}" style="min-width:auto;margin-right:6px">#${p.top}</span>${flag(p.name)} ${escapeHtml(p.name)}</h3>
+            <p style="color:var(--orange,#f0a);font-weight:600">★ ${p.points} Point</p>
+          </article>`;
+      }).join('') || `<div class="empty">No players found</div>`}
+    </div>`;
+}
+
+function renderLevelDetail(rank) {
+  const l = LEVELS.find(x => x.rank === Number(rank));
+  if (!l) return renderLevels();
+
+  const d = diff(l);
+  const dLower = String(d).toLowerCase();
+  let tier = 'tier-3';
+  if (['toe2','deadlocked','clubstep','fingerdash','dash','geometrical dominator'].includes(l.name.toLowerCase()) || dLower === 'auto') tier = 'tier-official';
+  else if (dLower.includes('insane demon') || l.rank <= 10) tier = 'tier-1';
+  else if (dLower.includes('hard demon') || l.rank <= 30) tier = 'tier-2';
+  let rankStyle = '';
+  if (l.rank === 1) rankStyle = 'gold';
+  else if (l.rank === 2) rankStyle = 'silver';
+  else if (l.rank === 3) rankStyle = 'bronze';
+
+  return `
+    <button class="btn back" data-page="levels">${t('back')}</button>
+    <div class="panel">
+      <div class="section-head">
+        <div>
+          <span class="badge">#${String(l.rank).padStart(2,'0')} · ${diffLabel(d)} · ★ ${levelPoints(l.rank)} Point</span>
+          <h2 style="margin-top:10px">${escapeHtml(l.name)}</h2>
+        </div>
+        <a class="btn" href="${searchUrl(l.name)}" target="_blank" rel="noopener">${t('find')}</a>
+      </div>
+      <div class="detail-cover level-cover ${tier}">
+        ${l.id ? `<img class="cover-img" src="https://levelthumbs.prevter.me/thumbnail/${l.id}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}
+        <span class="cover-rank ${rankStyle}">#${l.rank}</span>
+        <span class="cover-diff">${diffLabel(d)}</span>
+        <div class="cover-title">${escapeHtml(l.name)}</div>
+      </div>
+      <div class="row">
+        <div>
+          <div class="muted">${t('id')}</div>
+          <strong>${l.id || t('unknown')}</strong>
+        </div>
+        <div>
+          <div class="muted">${t('creator')}</div>
+          <strong>${l.creator ? escapeHtml(l.creator) : t('creatorUnknown')}</strong>
+        </div>
+        <div>
+          <div class="muted">Points</div>
+          <strong>★ ${levelPoints(l.rank)}</strong>
+        </div>
+        <div>
+          <div class="muted">${t('verifier')}</div>
+          <strong>${escapeHtml(l.verifier || l.victors[0] || t('verifierUnknown'))}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>${t('victors')} (${l.victors.length})</h3>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>${t('player')}</th>
+              <th>${t('percent')}</th>
+              <th>Points</th>
+              <th>${t('status')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${l.victors.map((v, i) => {
+              const isPercentPlayer = l.percentPlayer && l.percentPlayer.toLowerCase() === v.toLowerCase();
+              // Only the named progress owner gets partial progress; all completed victors show 100%.
+              const pct = isPercentPlayer ? (l.percent || '100%') : '100%';
+              const full = isFullCompletion(l, v);
+              const pts = full ? pointsForLevel(l, v) : 0;
+              const isVer = l.verifier && l.verifier.toLowerCase() === v.toLowerCase();
+              const otherVictors = l.victors.filter(x => !(l.verifier && x.toLowerCase() === l.verifier.toLowerCase()));
+              const role = isVer ? 'Verifier' : (otherVictors.findIndex(x => x.toLowerCase() === v.toLowerCase()) === 0
+                ? 'First Victor'
+                : (otherVictors.findIndex(x => x.toLowerCase() === v.toLowerCase()) === 1
+                  ? '2nd Victor' : (otherVictors.findIndex(x => x.toLowerCase() === v.toLowerCase()) === 2
+                    ? '3rd Victor' : `${otherVictors.findIndex(x => x.toLowerCase() === v.toLowerCase()) + 1}th Victor`)));
+              return `
+                <tr>
+                  <td><a href="#" data-player="${escapeHtml(v)}">${flag(v)} ${escapeHtml(v)}</a></td>
+                  <td>${escapeHtml(pct)}</td>
+                  <td>${full ? '★ ' + pts + (isVer ? ' (+10%)' : '') : '—'}</td>
+                  <td><span class="badge">${role}</span></td>
+                </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+function renderPlayerDetail(name) {
+  const p = PLAYERS.find(x => x.toLowerCase() === String(name).toLowerCase()) || name;
+  const all = LEVELS.filter(l => l.victors.some(v => v.toLowerCase() === String(p).toLowerCase()))
+                    .sort((a,b) => a.rank - b.rank);
+  // Only full completions count for hardest & completed count
+  const done = all.filter(l => isFullCompletion(l, p));
+  const progress = all.filter(l => !isFullCompletion(l, p));
+  const hardest = done[0];
+  const top = playerTop(p);
+  const stats = playerStats(p);
+
+  return `
+    <button class="btn back" data-page="players">${t('back')}</button>
+    <div class="panel">
+      <div class="row">
+        <div>
+          <h2 style="margin:10px 0 4px">${top ? `<span class="badge" style="margin-right:8px">Top ${top}</span>` : ''}${flag(p)} ${escapeHtml(p)}</h2>
+          <p style="color:var(--orange,#f0a);font-weight:700;font-size:1.15em">★ ${stats.points} Point</p>
+          <p class="muted">${t('hardest')}: ${hardest ? `#${hardest.rank} ${escapeHtml(hardest.name)}` : '—'}</p>
+          <p class="muted">${done.length} ${t('completedLabel')}</p>
+        </div>
+        <div>
+          <h3>${t('socialLinks')}</h3>
+          <div class="socials">
+            ${PLAYER_SOCIALS[String(p).toLowerCase()] ? `<a class="btn primary" href="${PLAYER_SOCIALS[String(p).toLowerCase()]}" target="_blank" rel="noopener noreferrer">Telegram ↗</a>` : ''}
+            ${PLAYER_YOUTUBE[String(p).toLowerCase()] ? `<a class="btn primary" href="${PLAYER_YOUTUBE[String(p).toLowerCase()]}" target="_blank" rel="noopener noreferrer">YouTube ↗</a>` : ''}
+          </div>
+          ${PLAYER_SOCIALS[String(p).toLowerCase()] || PLAYER_YOUTUBE[String(p).toLowerCase()] ? '' : `<p class="muted" style="margin-top:8px">${t('unknown')}</p>`}
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>${t('completed')}</h3>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>${t('name')}</th>
+              <th>${t('percent')}</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${done.map(l => {
+              const pts = pointsForLevel(l, p);
+              const isVer = l.verifier && l.verifier.toLowerCase() === String(p).toLowerCase();
+              return `
+                <tr>
+                  <td>#${l.rank}</td>
+                  <td><a href="#" data-open-level="${l.rank}">${escapeHtml(l.name)}</a></td>
+                  <td>100%</td>
+                  <td>★ ${pts}${isVer ? ' <span class="badge" style="margin-left:4px">+10% Verifier</span>' : ''}</td>
+                </tr>`;
+            }).join('') || `<tr><td colspan="4">${t('noRecords')}</td></tr>`}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    ${progress.length ? `
+    <div class="panel">
+      <h3>${lang === 'ru' ? 'Прогрессы' : 'Progress'}</h3>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>${t('name')}</th>
+              <th>${t('percent')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${progress.map(l => `
+                <tr>
+                  <td>#${l.rank}</td>
+                  <td><a href="#" data-open-level="${l.rank}">${escapeHtml(l.name)}</a></td>
+                  <td>${escapeHtml(l.percent || '—')}</td>
+                </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>` : ''}`;
+}
+
+function renderRules() {
+  return `
+    <div class="panel rules">
+      <h2>${t('policyTitle')}</h2>
+      <h3>${t('owner')}</h3>
+      <ol>
+        <li>${t('rules1')}</li>
+        <li>${t('rules2')}</li>
+        <li>${t('rules3')}</li>
+      </ol>
+      <h3>${t('requirements')}</h3>
+      <ul>
+        <li>${t('insaneReq')}</li>
+        <li>${t('easyReq')}</li>
+        <li>${t('mediumReq')}</li>
+        <li>${t('hardReq')}</li>
+        <li>${t('insanedReq')}</li>
+      </ul>
+      <h3>${t('review')}</h3>
+      <p>${t('review')}</p>
+      <h3>${t('privacy')}</h3>
+      <p>${t('privacyText')}</p>
+      <h3>${t('contact')}</h3>
+      <p>
+        <a class="btn primary" href="https://t.me/NLLLLLGD" target="_blank" rel="noopener">
+          ${t('telegram')}
+        </a>
+      </p>
+    </div>`;
+}
+
+function renderRequests() {
+  return `
+    <div class="panel">
+      <h2>${lang === 'ru' ? 'Реквесты уровней' : 'Level requests'}</h2>
+      <p class="muted">${lang === 'ru' ? 'Отправь уровень или запись о прохождении на проверку. Реквест появится в списке только после одобрения администрацией.' : 'Send a level or completion record for review. Requests are not published to the list until an administrator approves them.'}</p>
+      <form id="requestForm" class="request-form">
+        <label>${lang === 'ru' ? 'Тип реквеста' : 'Request type'}
+          <select name="type" required>
+            <option value="Add level">${lang === 'ru' ? 'Добавить уровень' : 'Add a level'}</option>
+            <option value="Add record">${lang === 'ru' ? 'Добавить прохождение' : 'Add a completion record'}</option>
+            <option value="Edit level">${lang === 'ru' ? 'Изменить информацию об уровне' : 'Edit level information'}</option>
+          </select>
+        </label>
+        <label>${lang === 'ru' ? 'Название уровня' : 'Level name'} <input name="level" required maxlength="100" placeholder="${lang === 'ru' ? 'Название уровня' : 'Level name'}"></label>
+        <label>${lang === 'ru' ? 'Ник игрока' : 'Player nickname'} <input name="player" required maxlength="50" placeholder="${lang === 'ru' ? 'Твой ник в Geometry Dash' : 'Your Geometry Dash nickname'}"></label>
+        <label>${lang === 'ru' ? 'ID уровня / текущее место (необязательно)' : 'Level ID / current rank (optional)'} <input name="id" maxlength="30" placeholder="${lang === 'ru' ? 'ID уровня или место в списке' : 'Level ID or rank'}"></label>
+        <label>${lang === 'ru' ? 'Прогресс / подробности' : 'Progress / details'} <input name="details" maxlength="300" placeholder="${lang === 'ru' ? 'Например: 100%, автор, исправление' : 'e.g. 100%, creator, correction'}"></label>
+        <label>${lang === 'ru' ? 'Ссылка на доказательство (необязательно)' : 'Proof link (optional)'} <input name="proof" type="url" maxlength="500" placeholder="https://..."></label>
+        <button class="btn primary" type="submit">${lang === 'ru' ? 'Отправить реквест' : 'Submit request'}</button>
+        <p id="requestNotice" class="muted">${lang === 'ru' ? 'Общая отправка реквестов и кнопки одобрения/отклонения заработают после подключения облачной базы данных и входа администратора.' : 'Shared submissions and approve/reject controls require connecting a cloud database and administrator sign-in.'}</p>
+      </form>
+    </div>
+    <div class="panel">
+      <h3>${lang === 'ru' ? 'Проверка реквестов' : 'Request review'}</h3>
+      <p class="muted">${lang === 'ru' ? 'Ожидающие реквесты проверяет администрация листа. Одобрение должно обновлять данные списка для всех посетителей, а не только в этом браузере.' : 'Pending requests should be reviewed by the list administration. Approval must update the shared list data, not just this browser.'}</p>
+      <div id="requestList" class="muted">${lang === 'ru' ? 'Очередь реквестов появится здесь после подключения общей базы данных.' : 'The request review queue will appear here after a shared backend is configured.'}</div>
+    </div>`;
+}
+
+
+function renderManage() {
+  const ru = lang === 'ru';
+  return `
+    <div class="panel">
+      <div class="section-head">
+        <div>
+          <h2>${ru ? 'Добавить уровень или прохождение' : 'Add a level or completion'}</h2>
+          <p class="manage-note">${ru ? 'Заполни подробности и нажми одну кнопку. Если уровень уже есть в листе, запись добавит игрока к его прохождениям.' : 'Fill in the details and press one button. If the level already exists, the player will be added to its victors.'}</p>
+        </div>
+      </div>
+      <form id="manageForm">
+        <div class="manage-grid">
+          <div class="manage-field"><label for="mPlayer">${ru ? 'Имя игрока *' : 'Player name *'}</label><input id="mPlayer" name="player" required maxlength="60" placeholder="dezlorator"></div>
+          <div class="manage-field"><label for="mLevel">${ru ? 'Название уровня *' : 'Level name *'}</label><input id="mLevel" name="level" required maxlength="100" placeholder="Solar Circles"></div>
+          <div class="manage-field"><label for="mRank">${ru ? 'Позиция в листе (если новый уровень)' : 'List rank (for a new level)'}</label><input id="mRank" name="rank" type="number" min="1" step="1" placeholder="${ru ? 'Автоматически в конец' : 'Auto: append to end'}"></div>
+          <div class="manage-field"><label for="mDifficulty">${ru ? 'Сложность' : 'Difficulty'}</label><select id="mDifficulty" name="difficulty"><option>Easy Demon</option><option>Medium Demon</option><option>Hard Demon</option><option selected>Insane Demon</option><option>Extreme Demon</option><option>Insane</option><option>Harder</option><option>Hard</option><option>Easy</option><option>Auto</option></select></div>
+          <div class="manage-field"><label for="mCreator">${ru ? 'Создатель уровня' : 'Level creator'}</label><input id="mCreator" name="creator" maxlength="80" placeholder="Creator nickname"></div>
+          <div class="manage-field"><label for="mId">${ru ? 'ID уровня' : 'Level ID'}</label><input id="mId" name="id" inputmode="numeric" maxlength="30" placeholder="10972106"></div>
+          <div class="manage-field"><label for="mVerifier">${ru ? 'Верифер / подтверждающий' : 'Verifier'}</label><input id="mVerifier" name="verifier" maxlength="60" placeholder="${ru ? 'Имя игрока' : 'Player name'}"></div>
+          <div class="manage-field"><label for="mProgress">${ru ? 'Прогресс игрока (%)' : 'Player progress (%)'}</label><input id="mProgress" name="progress" type="number" min="0" max="100" step="0.01" value="100"></div>
+          <div class="manage-field full"><label for="mVideo">${ru ? 'Видео прохождения' : 'Completion video'}</label><input id="mVideo" name="video" type="url" maxlength="500" placeholder="https://youtube.com/..."></div>
+          <div class="manage-field full"><label for="mDetails">${ru ? 'Подробности / комментарий' : 'Details / notes'}</label><textarea id="mDetails" name="details" maxlength="1000" placeholder="${ru ? 'Дополнительная информация, доказательства, заметки...' : 'Additional information, proof, notes...'}"></textarea></div>
+        </div>
+        <div class="buttons" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+          <button class="btn primary" type="submit">${ru ? '＋ Добавить запись в лист' : '＋ Add record to list'}</button>
+          <button class="btn" id="manageReset" type="reset">${ru ? 'Очистить поля' : 'Clear fields'}</button>
+          <button class="btn" id="manageExport" type="button">${ru ? 'Экспорт моих добавлений' : 'Export my additions'}</button>
+        </div>
+        <p id="manageNotice" class="manage-note" aria-live="polite">${ru ? 'Добавления сохраняются только в этом браузере. Чтобы опубликовать их для всех посетителей, нужно обновить HTML на хостинге.' : 'Additions are saved only in this browser. To publish them to all visitors, update the hosted HTML.'}</p>
+      </form>
+    </div>
+    <div class="panel">
+      <div class="section-head"><h3>${ru ? 'Добавленные тобой записи' : 'Your added entries'}</h3><span class="badge">${LOCAL_ADDITIONS.length}</span></div>
+      ${LOCAL_ADDITIONS.length ? LOCAL_ADDITIONS.slice().reverse().map((item, index) => `
+        <div class="record-row" style="padding:12px 0;border-bottom:1px solid var(--line)">
+          <strong>${escapeHtml(item.player || '—')} — ${escapeHtml(item.level?.name || '—')}</strong>
+          <div class="muted">${item.level?.rank ? '#'+item.level.rank+' · ' : ''}${escapeHtml(item.progress || '100')}% · ${escapeHtml(item.level?.difficulty || '')}</div>
+          ${item.details ? `<p class="muted">${escapeHtml(item.details)}</p>` : ''}
+          <button class="btn" type="button" data-remove-local="${LOCAL_ADDITIONS.length - 1 - index}">${ru ? 'Удалить добавление' : 'Remove entry'}</button>
+        </div>`).join('') : `<p class="manage-note">${ru ? 'Пока ничего не добавлено.' : 'Nothing added yet.'}</p>`}
+    </div>`;
+}
+
+function renderSocial() {
+  return `
+    <div class="panel">
+      <h2>Nishiy DemonList</h2>
+      <p class="muted">${lang === 'ru' ? 'Официальные соцсети листа' : 'Official list socials'}</p>
+      <div class="socials" style="margin-top:16px">
+        <a href="https://t.me/NLLLLLGD" target="_blank" rel="noopener">Telegram ↗</a>
+        <a href="https://discord.gg/kp9eUeGP7" target="_blank" rel="noopener">Discord ↗</a>
+        <a href="https://x.com/NishiyDemonList" target="_blank" rel="noopener">X (Twitter) ↗</a>
+        <a href="https://youtube.com/@nishiydemonlist?si=L4n6wdFlMT-v6v-m" target="_blank" rel="noopener">YouTube ↗</a>
+      </div>
+      <div style="margin-top:22px;padding:14px;background:var(--soft);border-radius:10px;border:1px solid var(--line)">
+        <div style="font-weight:700;margin-bottom:6px">${lang === 'ru' ? 'Discord-сервер' : 'Discord server'}</div>
+        <p class="muted" style="margin:0 0 10px">Nishiy DemonList</p>
+        <a class="btn primary" href="https://discord.gg/kp9eUeGP7" target="_blank" rel="noopener">discord.gg/kp9eUeGP7 ↗</a>
+      </div>
+      <p class="muted" style="margin-top:18px">
+        ${t('contact')}: <a href="https://t.me/NLLLLLGD" target="_blank" rel="noopener">t.me/NLLLLLGD</a>
+      </p>
+    </div>`;
+}
+
+/* ===================== BIND ===================== */
+function bind() {
+  const manageForm = document.getElementById('manageForm');
+  if (manageForm) {
+    manageForm.onsubmit = e => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(manageForm).entries());
+      const progress = Number(data.progress || 100);
+      const notice = document.getElementById('manageNotice');
+      if (!data.player.trim() || !data.level.trim() || !Number.isFinite(progress) || progress < 0 || progress > 100) {
+        if (notice) notice.textContent = lang === 'ru' ? 'Проверь имя игрока, уровень и прогресс от 0 до 100.' : 'Check the player, level, and progress from 0 to 100.';
+        return;
+      }
+      const existing = LEVELS.find(l => l.name.toLowerCase() === data.level.trim().toLowerCase());
+      let rank = existing ? existing.rank : (data.rank ? Number(data.rank) : Math.max(0, ...LEVELS.map(l => Number(l.rank) || 0)) + 1);
+      if (!existing && (!Number.isInteger(rank) || rank < 1 || LEVELS.some(l => Number(l.rank) === rank))) {
+        rank = Math.max(0, ...LEVELS.map(l => Number(l.rank) || 0)) + 1;
+      }
+      const level = existing ? {...existing, victors:[...existing.victors]} : {
+        rank, name:data.level.trim(), difficulty:data.difficulty || 'Demon',
+        victors:[], percent:'', percentPlayer:'', creator:data.creator.trim(),
+        id:data.id.trim(), verifier:data.verifier.trim() || data.player.trim()
+      };
+      if (!level.victors.some(v => v.toLowerCase() === data.player.trim().toLowerCase())) level.victors.push(data.player.trim());
+      if (progress < 100) { level.percent = `${progress}%`; level.percentPlayer = data.player.trim(); }
+      const addition = {
+        player:data.player.trim(),
+        level:{
+          rank:level.rank, name:level.name, difficulty:level.difficulty,
+          victors:level.victors, percent:level.percent || '', percentPlayer:level.percentPlayer || '',
+          creator:level.creator || data.creator.trim(), id:level.id || data.id.trim(),
+          verifier:level.verifier || data.verifier.trim() || data.player.trim()
+        },
+        progress:String(progress),
+        video:data.video.trim(),
+        details:data.details.trim(),
+        savedAt:new Date().toISOString()
+      };
+      if (existing) {
+        // Keep the current level metadata and only store the new player/progress as an addition.
+        addition.level = {rank:existing.rank,name:existing.name,difficulty:existing.difficulty,
+          victors:existing.victors,percent:existing.percent,percentPlayer:existing.percentPlayer,
+          creator:existing.creator,id:existing.id,verifier:existing.verifier};
+      }
+      LOCAL_ADDITIONS.push(addition);
+      try { localStorage.setItem(LOCAL_ADDITIONS_KEY, JSON.stringify(LOCAL_ADDITIONS)); }
+      catch (_) { LOCAL_ADDITIONS.pop(); if (notice) notice.textContent = lang === 'ru' ? 'Не удалось сохранить запись в браузере.' : 'Could not save this entry in the browser.'; return; }
+      location.reload();
+    };
+    const exportBtn = document.getElementById('manageExport');
+    if (exportBtn) exportBtn.onclick = () => {
+      const blob = new Blob([JSON.stringify(LOCAL_ADDITIONS,null,2)], {type:'application/json;charset=utf-8'});
+      const url = URL.createObjectURL(blob); const a = document.createElement('a');
+      a.href=url; a.download='nishiy-demon-list-additions.json'; a.click(); URL.revokeObjectURL(url);
+    };
+    const resetBtn = document.getElementById('manageReset');
+    if (resetBtn) resetBtn.onclick = () => {};
+  }
+  document.querySelectorAll('[data-remove-local]').forEach(btn => {
+    btn.onclick = () => {
+      const index = Number(btn.dataset.removeLocal);
+      if (!Number.isInteger(index) || index < 0 || index >= LOCAL_ADDITIONS.length) return;
+      if (!confirm(lang === 'ru' ? 'Удалить это добавление? Перезагрузить сайт?' : 'Remove this entry and reload the site?')) return;
+      LOCAL_ADDITIONS.splice(index,1);
+      localStorage.setItem(LOCAL_ADDITIONS_KEY, JSON.stringify(LOCAL_ADDITIONS));
+      location.reload();
+    };
+  });
+  const requestForm = document.getElementById('requestForm');
+  if (requestForm) {
+    requestForm.onsubmit = e => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(requestForm).entries());
+      const notice = document.getElementById('requestNotice');
+      const list = document.getElementById('requestList');
+      if (notice) notice.textContent = lang === 'ru'
+        ? 'Форма работает в режиме предпросмотра. Для отправки всем пользователям и одобрения администратором нужно подключить общую базу данных.'
+        : 'Preview only: a shared database is required for submissions visible to everyone and administrator approval.';
+      if (list) list.innerHTML = '<p><strong>' + (lang === 'ru' ? 'Локальный предпросмотр (не опубликовано): ' : 'Local preview (not published): ') +
+        [data.type, data.level, data.player, data.id, data.details, data.proof].filter(Boolean).map(escapeHtml).join(' · ') + '</p>';
+    };
+  }
+  document.querySelectorAll('[data-page]').forEach(b => {
+    b.onclick = () => {
+      page = b.dataset.page;
+      selected = null;
+      search = '';
+      render();
+    };
+  });
+
+  const langBtn = document.getElementById('langToggle');
+  if (langBtn) {
+    langBtn.onclick = () => {
+      lang = lang === 'en' ? 'ru' : 'en';
+      render();
+    };
+  }
+
+  const ls = document.getElementById('levelSearch');
+  if (ls) {
+    ls.oninput = () => {
+      search = ls.value;
+      const pos = ls.selectionStart;
+      render();
+      const x = document.getElementById('levelSearch');
+      if (x) {
+        x.focus();
+        x.setSelectionRange(pos, pos);
+      }
+    };
+    const lf = document.getElementById('levelFilter');
+    if (lf) {
+      lf.value = filter;
+      lf.onchange = e => {
+        filter = e.target.value;
+        render();
+      };
+    }
+  }
+
+  const ps = document.getElementById('playerSearch');
+  if (ps) {
+    ps.oninput = () => {
+      const q = ps.value;
+      document.getElementById('main').innerHTML = renderPlayersWithQuery(q);
+      bind();
+    };
+  }
+
+  document.querySelectorAll('[data-open-level]').forEach(b => {
+    b.onclick = e => {
+      e.preventDefault();
+      e.stopPropagation();
+      selected = b.dataset.openLevel;
+      page = 'level';
+      render();
+    };
+  });
+
+  document.querySelectorAll('[data-level]').forEach(c => {
+    c.onclick = e => {
+      if (e.target.closest('a,button')) return;
+      selected = c.dataset.level;
+      page = 'level';
+      render();
+    };
+  });
+
+  document.querySelectorAll('[data-shitty]').forEach(c => {
+    const openShitty = e => {
+      if (e && e.target.closest('a,button')) return;
+      selected = c.dataset.shitty;
+      page = 'shitty-detail';
+      render();
+    };
+    c.onclick = openShitty;
+    c.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openShitty(e); } };
+  });
+
+  document.querySelectorAll('[data-player]').forEach(c => {
+    c.onclick = e => {
+      e.preventDefault();
+      selected = c.dataset.player;
+      page = 'player';
+      render();
+    };
+  });
+}
+
+function renderPlayersWithQuery(q) {
+  const ranked = rankedPlayers().filter(p => p.name.toLowerCase().includes(q.toLowerCase()));
+  return `
+    <div class="section-head">
+      <h2>${t('players')}</h2>
+    </div>
+    <div class="toolbar">
+      <input id="playerSearch" class="search" placeholder="${t('searchPlayer')}" value="${escapeHtml(q)}">
+    </div>
+    <div class="player-grid">
+      ${ranked.map(p => {
+        const hardestLvl = LEVELS.find(l => l.rank === p.hardest);
+        const topClass = p.top <= 3 ? `rank-${p.top}` : '';
+        return `
+          <article class="card player-card" data-player="${escapeHtml(p.name)}">
+            <h3><span class="level-number ${topClass}" style="min-width:auto;margin-right:6px">#${p.top}</span>${flag(p.name)} ${escapeHtml(p.name)}</h3>
+            <p style="color:var(--orange,#f0a);font-weight:600">★ ${p.points} Point</p>
+          </article>`;
+      }).join('')}
+    </div>`;
+}
+
+/* ===================== INIT ===================== */
+window.NISHI_APP = { LEVELS, PLAYERS, render, getPage:()=>page, setPage:(p)=>{page=p;render();}, escapeHtml };
+render();
+</script>
+
+<!-- Nishiy cloud system: configure Firebase before publishing. -->
+<style>
+#cloudDock{position:fixed;right:10px;bottom:10px;z-index:9999;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;max-width:calc(100vw - 20px)}
+#cloudDock button,.cloud-box button{border:1px solid var(--line,#333);background:var(--panel,#171717);color:var(--text,#fff);border-radius:9px;padding:8px 10px;font-size:12px;cursor:pointer}
+#cloudPanel{display:none;position:fixed;z-index:10000;inset:auto 10px 54px auto;width:min(380px,calc(100vw - 20px));max-height:72vh;overflow:auto;background:var(--panel,#171717);color:var(--text,#fff);border:1px solid var(--line,#444);border-radius:12px;padding:12px;box-shadow:0 8px 40px #0008}
+.cloud-box{display:grid;gap:8px}.cloud-box input,.cloud-box select,.cloud-box textarea{width:100%;box-sizing:border-box;background:var(--bg,#101010);color:inherit;border:1px solid var(--line,#444);border-radius:8px;padding:9px;font:inherit}.cloud-row{display:flex;gap:6px}.cloud-row>*{flex:1;min-width:0}.cloud-small{font-size:11px;opacity:.75;line-height:1.35}.cloud-item{border:1px solid var(--line,#444);border-radius:8px;padding:8px;margin:6px 0}.cloud-item button{margin:3px 3px 0 0}.cloud-admin-controls{display:none}
+</style>
+<div id="cloudDock"><button id="cloudOpenRequests">＋ Реквест</button><button id="cloudLogin">Войти админом</button></div>
+<div id="cloudPanel"><div class="cloud-box"><div class="cloud-row"><strong id="cloudTitle">Nishiy · Cloud</strong><button id="cloudClose" type="button">Закрыть</button></div><div id="cloudStatus" class="cloud-small">Облачная система требует настройки Firebase.</div><div id="cloudContent"></div></div></div>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+import { getFirestore, collection, addDoc, getDocs, doc, setDoc, updateDoc, deleteDoc, query, orderBy, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+
+// 1) Replace these values with your Firebase project's web-app config.
+const firebaseConfig = {
+  apiKey: 'PASTE_FIREBASE_API_KEY',
+  authDomain: 'PASTE_PROJECT_ID.firebaseapp.com',
+  projectId: 'PASTE_PROJECT_ID',
+  appId: 'PASTE_FIREBASE_APP_ID'
+};
+// 2) Add each admin's Google email here. Access is enforced again in Firestore Rules.
+const ADMIN_EMAILS = ['REPLACE_WITH_ADMIN_GOOGLE_EMAIL'];
+const configured = !Object.values(firebaseConfig).some(v => String(v).includes('PASTE_')) && !ADMIN_EMAILS.includes('REPLACE_WITH_ADMIN_GOOGLE_EMAIL');
+const panel=document.getElementById('cloudPanel'), content=document.getElementById('cloudContent'), status=document.getElementById('cloudStatus');
+let auth=null, db=null, user=null, isAdmin=false;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function openPanel(){panel.style.display='block'} function closePanel(){panel.style.display='none'}
+document.getElementById('cloudClose').onclick=closePanel;
+document.getElementById('cloudOpenRequests').onclick=()=>{openPanel();renderSubmit()};
+document.getElementById('cloudLogin').onclick=async()=>{openPanel();if(!configured){status.textContent='Сначала настрой Firebase в этом файле и Firestore Rules. См. README.';content.innerHTML='';return;}try{if(user){if(isAdmin){renderAdmin();return;} await signOut(auth);return;}await signInWithPopup(auth,new GoogleAuthProvider());}catch(e){status.textContent='Ошибка входа: '+e.message}};
+async function syncCloudData(){if(!db||!window.NISHI_APP)return;try{const appData=window.NISHI_APP;const levelSnap=await getDocs(collection(db,'levels'));levelSnap.forEach(d=>{const x=d.data();if(!x.name)return;let old=appData.LEVELS.find(l=>String(l.name).toLowerCase()===String(x.name).toLowerCase());const item={rank:Number(x.rank)||appData.LEVELS.length+1,name:x.name,id:x.id||'',creator:x.creator||'',difficulty:x.difficulty||'Demon',victors:[],percent:'',percentPlayer:''};if(old){Object.assign(old,item,{victors:old.victors||[]})}else appData.LEVELS.push(item)});const recSnap=await getDocs(collection(db,'approvedRecords'));recSnap.forEach(d=>{const r=d.data();const l=appData.LEVELS.find(x=>String(x.name).toLowerCase()===String(r.level||'').toLowerCase());if(!l||!r.player)return;l.victors=l.victors||[];if(!l.victors.some(v=>String(v).toLowerCase()===String(r.player).toLowerCase()))l.victors.push(r.player);if(r.progress&&Number(r.progress)<100){l.percent=String(r.progress)+'%';l.percentPlayer=r.player}if(r.proof)l.recordVideo=r.proof});appData.LEVELS.sort((a,b)=>(Number(a.rank)||99999)-(Number(b.rank)||99999));appData.render()}catch(e){console.warn('Cloud sync skipped',e)}}
+function init(){try{const app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);syncCloudData();onAuthStateChanged(auth,u=>{user=u;isAdmin=!!u&&ADMIN_EMAILS.map(x=>x.toLowerCase()).includes((u.email||'').toLowerCase());document.getElementById('cloudLogin').textContent=isAdmin?'Админ · '+(u.displayName||u.email):u?'Выйти':'Войти админом';status.textContent=u?(isAdmin?'Вы вошли как администратор.':'Вход выполнен; доступны реквесты.'):'Можно отправить реквест без входа.';if(panel.style.display==='block'&&isAdmin)renderAdmin();});}catch(e){status.textContent='Firebase не настроен. Заполни firebaseConfig и ADMIN_EMAILS в HTML.'}}
+function renderSubmit(){status.textContent='Реквесты видны всем администраторам после отправки.';content.innerHTML=`<form id="cloudRequest" class="cloud-box"><select name="type"><option value="record">Добавить прохождение</option><option value="level">Добавить уровень</option><option value="edit">Исправить данные</option></select><input name="player" required maxlength="50" placeholder="Твой ник в Geometry Dash"><input name="level" required maxlength="100" placeholder="Название уровня"><div class="cloud-row"><input name="progress" type="number" min="0" max="100" placeholder="% прогресса"><input name="id" maxlength="30" placeholder="ID уровня"></div><input name="creator" maxlength="80" placeholder="Создатель уровня"><input name="proof" type="url" maxlength="500" placeholder="Ссылка на видео / доказательство"><textarea name="details" maxlength="500" placeholder="Дополнительная информация (необязательно)"></textarea><button type="submit">Отправить реквест</button><div class="cloud-small">Не указывай пароль или личные данные. Отправка не гарантирует одобрения.</div></form>`;
+ document.getElementById('cloudRequest').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.currentTarget),data=Object.fromEntries(f.entries());if(!configured||!db){status.textContent='Облачная база пока не подключена. Настрой Firebase по README.';return;}try{await addDoc(collection(db,'requests'),{...data,status:'pending',createdAt:serverTimestamp()});status.textContent='Реквест отправлен на проверку!';content.innerHTML='';}catch(err){status.textContent='Не удалось отправить: '+err.message}}}
+async function renderAdmin(){if(!isAdmin||!db){content.innerHTML='';return;}status.textContent='Панель администратора · реквесты и управление местами';content.innerHTML=`<div class="cloud-row"><button id="cloudAddLevel">＋ Уровень</button><button id="cloudImportLevels">Импортировать исходный лист</button><button id="cloudReload">Обновить</button><button id="cloudLogout">Выйти</button></div><div id="cloudAddForm"></div><h4>Ожидают проверки</h4><div id="cloudQueue">Загрузка…</div><h4>Изменение мест</h4><div id="cloudRanks">Загрузка…</div>`;
+ document.getElementById('cloudLogout').onclick=()=>signOut(auth);document.getElementById('cloudReload').onclick=renderAdmin;document.getElementById('cloudImportLevels').onclick=async()=>{if(!confirm('Импортировать все уровни текущего HTML в общую базу? Это позволит менять их места для всех посетителей.'))return;try{const appData=window.NISHI_APP;for(const l of appData.LEVELS){const key='base-'+String(l.rank)+'-'+String(l.name).toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,40);await setDoc(doc(db,'levels',key),{rank:Number(l.rank)||99999,name:l.name,id:l.id||'',creator:l.creator||'',difficulty:l.difficulty||'Demon',victors:l.victors||[],percent:l.percent||'',percentPlayer:l.percentPlayer||'',importedFromHtml:true,updatedAt:serverTimestamp()},{merge:true})}await syncCloudData();status.textContent='Исходный лист импортирован в общую базу.';renderAdmin()}catch(e){status.textContent='Ошибка импорта: '+e.message}};document.getElementById('cloudAddLevel').onclick=()=>{const el=document.getElementById('cloudAddForm');el.innerHTML=`<form id="cloudNewLevel" class="cloud-box"><input name="name" required placeholder="Название уровня"><div class="cloud-row"><input name="rank" type="number" min="1" placeholder="Место"><input name="id" placeholder="ID уровня"></div><input name="creator" placeholder="Создатель"><input name="difficulty" placeholder="Сложность, например Extreme Demon"><button>Добавить в лист</button></form>`;document.getElementById('cloudNewLevel').onsubmit=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.currentTarget));const rank=Number(d.rank)||Math.max(0,...(window.NISHI_APP?.LEVELS||[]).map(l=>Number(l.rank)||0))+1;try{await setDoc(doc(db,'levels',String(rank)),{...d,rank,updatedAt:serverTimestamp()});await syncCloudData();status.textContent='Уровень добавлен и синхронизирован.';renderAdmin()}catch(err){status.textContent='Ошибка: '+err.message}}};
+ try{const snap=await getDocs(query(collection(db,'requests'),orderBy('createdAt','desc')));const reqs=snap.docs.map(d=>({id:d.id,...d.data()}));const queue=document.getElementById('cloudQueue');const pending=reqs.filter(r=>r.status==='pending');queue.innerHTML=pending.length?pending.map(r=>`<div class="cloud-item"><b>${esc(r.type)} · ${esc(r.level)}</b><div class="cloud-small">${esc(r.player)} · ${esc(r.progress||'—')}% · ID ${esc(r.id||'—')}</div>${r.proof?`<a href="${esc(r.proof)}" target="_blank" rel="noopener">Открыть доказательство ↗</a>`:''}<div>${esc(r.details||'')}</div><button data-approve="${esc(r.id)}">Одобрить</button><button data-reject="${esc(r.id)}">Отклонить</button></div>`).join(''):'Нет ожидающих реквестов.';
+ queue.querySelectorAll('[data-approve]').forEach(b=>b.onclick=async()=>{const r=reqs.find(x=>x.id===b.dataset.approve);try{await updateDoc(doc(db,'requests',r.id),{status:'approved',reviewedBy:user.email,reviewedAt:serverTimestamp()});if(r.type==='level'){const ranks=await getDocs(collection(db,'levels'));const rank=Number(r.id)||ranks.size+1;await setDoc(doc(db,'levels',String(rank)),{name:r.level,rank,id:r.id||'',creator:r.creator||'',difficulty:'Demon',updatedAt:serverTimestamp()})}else{await addDoc(collection(db,'approvedRecords'),{...r,approvedAt:serverTimestamp(),approvedBy:user.email})}await syncCloudData();renderAdmin()}catch(e){status.textContent='Не удалось одобрить: '+e.message}});
+ queue.querySelectorAll('[data-reject]').forEach(b=>b.onclick=async()=>{try{await updateDoc(doc(db,'requests',b.dataset.reject),{status:'rejected',reviewedBy:user.email,reviewedAt:serverTimestamp()});renderAdmin()}catch(e){status.textContent=e.message}});
+ const rankBox=document.getElementById('cloudRanks');const lsnap=await getDocs(collection(db,'levels'));const cloudLevels=lsnap.docs.map(d=>({key:d.id,...d.data()})).sort((a,b)=>(Number(a.rank)||99999)-(Number(b.rank)||99999));rankBox.innerHTML=cloudLevels.length?cloudLevels.map((l,i)=>`<div class="cloud-item"><b>#${esc(l.rank)} ${esc(l.name)}</b><div class="cloud-row"><button data-move="up" data-key="${esc(l.key)}" ${i===0?'disabled':''}>↑</button><button data-move="down" data-key="${esc(l.key)}" ${i===cloudLevels.length-1?'disabled':''}>↓</button><button data-del="${esc(l.key)}">Удалить</button></div></div>`).join(''):'Уровни, созданные через облачную панель, появятся здесь.';
+ rankBox.querySelectorAll('[data-move]').forEach(b=>b.onclick=async()=>{const i=cloudLevels.findIndex(x=>x.key===b.dataset.key),j=i+(b.dataset.move==='up'?-1:1);if(j<0||j>=cloudLevels.length)return;const a=cloudLevels[i],z=cloudLevels[j];await updateDoc(doc(db,'levels',a.key),{rank:Number(z.rank)});await updateDoc(doc(db,'levels',z.key),{rank:Number(a.rank)});renderAdmin()});rankBox.querySelectorAll('[data-del]').forEach(b=>b.onclick=async()=>{if(confirm('Удалить уровень из облачного списка?')){await deleteDoc(doc(db,'levels',b.dataset.del));renderAdmin()}});
+ }catch(e){status.textContent='Не удалось загрузить очередь. Проверь Firestore Rules: '+e.message}}
+if(configured)init();else status.textContent='Firebase ещё не настроен. Реквесты и админ-панель начнут работать после настройки проекта (инструкция в README).';
+</script>
+
+</body>
+</html>
